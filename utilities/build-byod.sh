@@ -1,29 +1,27 @@
 echo Build a demo zip archive
 
 _FULL_PATH=$(cd -P -- "$(dirname -- "$0")" && pwd -P) && SELF_PATH=$SELF_PATH/$(basename -- "$0" | awk '{ print $NF }')
-_CLASSROOM_HOME=$(echo $_FULL_PATH | awk '{ print $1 }') # weirdness with paths, should be able to combine with above
+_DOJO_HOME=$(echo $_FULL_PATH | awk '{ print $1 }') # weirdness with paths, should be able to combine with above
 
-echo "$_FULL_PATH"
-echo "$_CLASSROOM_HOME"
+#echo "$_FULL_PATH"
+#echo "$_DOJO_HOME"
 
-cd "$_CLASSROOM_HOME"/.. 
+cd "$_DOJO_HOME"/.. 
 
-pwd
-
-cleanup () 
+dojo_cleanup () 
 {
-  if [ -f ./builds/dojo-multitier.zip ]
+  if [ -f ./builds/dojo.tar.gz ]
   then
     echo "Removing old dojo build"
     rm ./builds/dojo.tar.gz 
   fi
 }
 
-new_dojo_build ()
+dojo_build ()
 {
-  cleanup
+  dojo_cleanup
   tar -chzvf ./builds/dojo.tar.gz ./resources
 }
 
-new_dojo_build
+dojo_build
 
